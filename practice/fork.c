@@ -19,6 +19,14 @@ int main(void)
         perror("Error:");
         return (1);
     }
+    if (pid == 0)
+    {
+        printf("I am a child!\n");
+    }
+    else
+    {
+        printf("I am your daddy!\n");
+    }
     printf("After fork\n");
     my_pid = getpid();
     printf("My pid is %u\n", my_pid);
