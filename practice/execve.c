@@ -3,7 +3,7 @@
 
 int main (void)
 {
-	char *argv[] = {"/usr/bin/greps", "unistd", "/tmp/test.c", NULL};
+	char *argv[] = {"/usr/bin/ls", "/tmp/test.c", NULL};
 
     printf("Before execve\n");
     if (execve(argv[0], argv, NULL) == -1)

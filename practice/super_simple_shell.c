@@ -25,10 +25,7 @@ int main(void)
 			printf("Bye Bye\n");
 			break;
 		}
-		//if ((argv[0] = malloc(len)) == NULL)
-		//	continue;
-		printf("Value: %c\n", *lineptr[2]);
-		*lineptr[len-1] = '\0';
+		(*lineptr)[len-1] = '\0';
 		argv[0] = *lineptr;
 		argv[1] = NULL;
 		pid = fork();
