@@ -23,7 +23,7 @@ int main(int argc, char **argv, char **env)
 	{
 		b.line = NULL;
 		if (isatty(STDIN_FILENO))
-			printf("#cisfun$ ");
+			printf("$ ");
 		if (getline(&b.line, &n, stdin) == -1)
 			break;
 		i = 0;
