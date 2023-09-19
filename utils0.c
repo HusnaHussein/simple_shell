@@ -2,6 +2,10 @@
 
 void execute(bundle *);
 
+/**
+ * build_args - build argument vector
+ * @b: bundle
+*/
 void build_args(bundle *b)
 {
 	char *cmd;
@@ -30,6 +34,10 @@ void build_args(bundle *b)
 	}
 }
 
+/**
+ * execute - execute programs
+ * @b: bundle
+*/
 void execute(bundle *b)
 {
 	if (find_path(b))
@@ -61,6 +69,10 @@ void execute(bundle *b)
 	}
 }
 
+/**
+ * free_mem - frees list of memory allocated
+ * @list: of allocations
+*/
 void free_mem(allocs *list)
 {
 	while (list->cursor >= 0)
@@ -68,7 +80,10 @@ void free_mem(allocs *list)
 }
 
 /**
- * Note: cmd should never be NULL
+ * find_path - path finder
+ * @b: bundle
+ *
+ * Return: 1 on success otherwise 0
 */
 short find_path(bundle *b)
 {

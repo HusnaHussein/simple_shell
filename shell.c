@@ -1,5 +1,14 @@
 #include "main.h"
+int main(int, char **, char **);
 
+/**
+ * main - Entry point
+ * @argc: command line args count
+ * @argv: command line args array
+ * @env: process environment
+ *
+ * Return: integer
+*/
 int main(int argc, char **argv, char **env)
 {
 	bundle b;
@@ -69,7 +78,8 @@ int main(int argc, char **argv, char **env)
 					execute(&b);
 				if (b.status == 0 && b.sep_list[i - 1] == or)
 					break;
-				if (!isatty(STDIN_FILENO) && b.status == 512 && (!b.cmd_list[i] || b.sep_list[i - 1] == and))
+				if (!isatty(STDIN_FILENO) && b.status == 512 &&
+				 (!b.cmd_list[i] || b.sep_list[i - 1] == and))
 					exit(2);
 			}
 		}

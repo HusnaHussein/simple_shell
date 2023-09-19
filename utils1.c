@@ -2,6 +2,12 @@
 
 short exe_builtin(bundle *);
 
+/**
+ * exe_builtin - execute builtins
+ * @b: bundle
+ *
+ * Return: 1 on success otherwise 0
+*/
 short exe_builtin(bundle *b)
 {
 	int i;
@@ -103,9 +109,14 @@ short exe_builtin(bundle *b)
 	return (0);
 }
 
+/**
+ * free_array_memory - free memory allocated
+ * @lines: lines
+*/
 void free_array_memory(char **lines)
 {
 	int i = 0;
+
 	while (lines[i] != NULL)
 	{
 		free(lines[i]);
@@ -114,9 +125,16 @@ void free_array_memory(char **lines)
 	free(lines);
 }
 
+/**
+ * change_dir - changes process PWD
+ * @b: bundle
+ *
+ * Return: true on success otherwise false
+*/
 bool change_dir(bundle *b)
 {
 	bool change = false;
+
 	if (access(b->pwd.new, F_OK) == 0)
 	{
 		change = !change;
