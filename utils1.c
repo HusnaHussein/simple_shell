@@ -34,8 +34,9 @@ short exe_builtin(bundle *b)
 			}
 			if (!b->argv[1][i])
 			{
+				i = atoi(b->argv[1]);
 				free(b->line);
-				exit(atoi(b->argv[1]));
+				exit(i);
 			}
 		}
 		else
