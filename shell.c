@@ -11,7 +11,7 @@ int main(int, char **, char **);
 */
 int main(int argc, char **argv, char **env)
 {
-	bundle b;
+	bundle b = {0};
 	short i;
 	size_t n = 0;
 	char *tmp, *and_pos, *or_pos, *semi_pos, *min, *comment;
