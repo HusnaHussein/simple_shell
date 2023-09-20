@@ -13,22 +13,22 @@ int main(int argc, char **argv, char **env)
 {
 	bundle b;
 	short i;
-	size_t n = MAX_PATH;
+	size_t n = 0;
 	char *tmp, *and_pos, *or_pos, *semi_pos, *min;
 
 	b.shell.argc = argc;
 	b.shell.argv = argv;
 	b.shell.env = env;
-	b.line = malloc(MAX_PATH);
-	if (b.line)
-	{
-		bzero(b.line, MAX_PATH);
 		while (true)
 		{
+			b.line = NULL;
 			if (isatty(STDIN_FILENO))
 				printf("$ ");
 			if (getline(&b.line, &n, stdin) == -1)
+			{
+				free(b.line);
 				break;
+			}
 			i = 0;
 			tmp = b.line;
 			bzero(b.sep_list, sizeof(serpator) * MAX_PATH);
@@ -88,10 +88,8 @@ int main(int argc, char **argv, char **env)
 						exit(2);
 					}
 				}
-				/* free_mem(&b.list); */
 			}
+			free(b.line);
 		}
-		free(b.line);
-	}
 	return (0);
 }
