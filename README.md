@@ -1,1 +1,4 @@
-Simple Shell Group Project ALX 2023 Cohort 17
+# Simple Shell Group Project ALX 2023 Cohort 17
+# Group Members
+- Felix Kimbu
+- Husna Hussein
