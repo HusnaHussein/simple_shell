@@ -82,13 +82,14 @@ int main(int argc, char **argv, char **env)
 				{
 					if (!exe_builtin(&b))
 						execute(&b);
+					b.status = b.status == 512 ? 2 : b.status;
 					if (b.status == 0 && b.sep_list[i - 1] == or)
 						break;
-					if (!isatty(STDIN_FILENO) && b.status == 512 &&
-					(!b.cmd_list[i] || b.sep_list[i - 1] == and))
+					if (!isatty(STDIN_FILENO) && b.status == 2 &&
+					((!b.cmd_list[i] && i > 1) || b.sep_list[i - 1] == and))
 					{
 						free(b.line);
-						exit(2);
+						exit(b.status);
 					}
 				}
 			}

@@ -15,6 +15,7 @@
 
 #define MAX_PATH 4096
 #define ALLOC_SIZE 32
+#define CONV_BUFFER_SIZE 40
 
 /**
 * struct shell - struct for shell
@@ -80,6 +81,7 @@ typedef enum serpator
 * @pwd: count
 * @cmd: args
 * @sep_list: environment
+* @conv_buffer: conv_buffer
 */
 typedef struct bundle
 {
@@ -95,14 +97,15 @@ typedef struct bundle
 	pwd pwd;
 	char *cmd;
 	serpator sep_list[MAX_PATH];
+	char conv_buffer[CONV_BUFFER_SIZE];
 } bundle;
 
 void execute(bundle *);
 void free_mem(allocs *);
 short find_path(bundle *);
 short exe_builtin(bundle *);
-void free_array_memory(char **);
 bool change_dir(bundle *);
 void build_args(bundle *);
+char *base_conv(int64_t, short, char *);
 
 #endif

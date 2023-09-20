@@ -23,7 +23,21 @@ void build_args(bundle *b)
 		{
 			i = 0;
 			while ((b->argv[i] = strtok(i ? NULL : b->cmd, " ")))
+			{
+				bzero(b->conv_buffer, CONV_BUFFER_SIZE);
+				if (strcmp(b->argv[i], "$?") == 0)
+					b->argv[i] = base_conv(b->status, 10, b->conv_buffer);
+				else if (strcmp(b->argv[i], "$$") == 0)
+					b->argv[i] = base_conv(getpid(), 10, b->conv_buffer);
+				else if (*b->argv[i] == '$')
+				{
+					if (getenv(b->argv[i] + 1))
+					{
+						b->argv[i] = getenv(b->argv[i] + 1);
+					}
+				}
 				i++;
+			}
 		}
 	}
 }
@@ -61,16 +75,6 @@ void execute(bundle *b)
 		fprintf(stderr, "%s: 1: %s: not found\n", *b->shell.argv, *b->argv);
 		exit(127);
 	}
-}
-
-/**
- * free_mem - frees list of memory allocated
- * @list: of allocations
-*/
-void free_mem(allocs *list)
-{
-	while (list->cursor >= 0)
-		free(list->loc[list->cursor--]);
 }
 
 /**
