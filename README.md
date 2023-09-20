@@ -2,3 +2,5 @@
 # Group Members
 - Felix Kimbu
 - Husna Hussein
+# Duration:
+- From 6th September 2023
