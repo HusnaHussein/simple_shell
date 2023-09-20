@@ -15,7 +15,10 @@ short exe_builtin(bundle *b)
 	if (strcmp(b->argv[0], "exit") == 0)
 	{
 		if (b->args == 1)
+		{
+			free(b->line);
 			exit(EXIT_SUCCESS);
+		}
 		else if (b->args == 2)
 		{
 			i = 0;
@@ -25,15 +28,20 @@ short exe_builtin(bundle *b)
 				{
 					fprintf(stderr, "%s: 1: exit: Illegal number: ", *b->shell.argv);
 					fprintf(stderr, "%s\n", b->argv[1]);
+					free(b->line);
 					exit(2);
 				}
 			}
 			if (!b->argv[1][i])
+			{
+				free(b->line);
 				exit(atoi(b->argv[1]));
+			}
 		}
 		else
 		{
 			fprintf(stderr, "%s: exit: too many arguments\n", *b->shell.argv);
+			free(b->line);
 			exit(EXIT_FAILURE);
 		}
 		return (1);
