@@ -90,19 +90,26 @@ short exe_builtin(bundle *b)
 	else if (strcmp(b->argv[0], "cd") == 0)
 	{
 		bzero(b->pwd.old, MAX_PATH);
-		strcpy(b->pwd.old, getenv("OLDPWD"));
 		bzero(b->pwd.cur, MAX_PATH);
 		getcwd(b->pwd.cur, MAX_PATH);
 		bzero(b->pwd.tmp, MAX_PATH);
 		bzero(b->pwd.new, MAX_PATH);
+		if (getenv("OLDPWD"))
+			strcpy(b->pwd.old, getenv("OLDPWD"));
+		else
+			strcpy(b->pwd.old, b->pwd.cur);
 		switch (b->args)
 		{
 			case 1:
-				strcpy(b->pwd.new, getenv("HOME"));
+				if (getenv("HOME"))
+					strcpy(b->pwd.new, getenv("HOME"));
+				else
+					b->args = 0;
 				break;
 			case 2:
 				if (*b->argv[1] == '-')
 				{
+					printf("%s\n", b->pwd.old);
 					strcpy(b->pwd.new, b->pwd.old);
 				}
 				else
@@ -163,6 +170,8 @@ bool change_dir(bundle *b)
 		setenv("PWD", b->pwd.new, 1);
 		return (true);
 	}
+	fprintf(stderr, "%s: 1: %s: ", *b->shell.argv, *b->argv);
+	fprintf(stderr, "can't cd to %s\n", b->argv[1]);
 	return (false);
 }
 
