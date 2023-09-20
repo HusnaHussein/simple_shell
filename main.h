@@ -83,7 +83,7 @@ typedef enum serpator
 */
 typedef struct bundle
 {
-	char **argv;
+	char *argv[MAX_PATH];
 	char *cmd_list[MAX_PATH];
 	char path[MAX_PATH];
 	int status;

@@ -14,22 +14,16 @@ void build_args(bundle *b)
 	cmd = malloc(strlen(b->cmd) + 1);
 	if (cmd)
 	{
-		b->list.loc[++b->list.cursor] = cmd;
 		strcpy(cmd, b->cmd);
 		b->args = 0;
 		while (strtok(b->args ? NULL : cmd, " "))
 			b->args++;
+		free(cmd);
 		if (b->args)
 		{
-			b->argv = malloc(sizeof(char *) * (b->args + 1));
-			if (b->argv)
-			{
-				b->list.loc[++b->list.cursor] = b->argv;
-				cmd = b->cmd;
-				i = 0;
-				while ((b->argv[i] = strtok(i ? NULL : cmd, " ")))
-					i++;
-			}
+			i = 0;
+			while ((b->argv[i] = strtok(i ? NULL : b->cmd, " ")))
+				i++;
 		}
 	}
 }

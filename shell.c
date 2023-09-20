@@ -69,10 +69,10 @@ int main(int argc, char **argv, char **env)
 		i = 0;
 		while ((b.cmd = b.cmd_list[i++]))
 		{
-			b.argv = NULL;
+			bzero(b.argv, sizeof(char *) * MAX_PATH);
 			b.list.cursor = -1;
 			build_args(&b);
-			if (b.argv)
+			if (b.argv[0])
 			{
 				if (!exe_builtin(&b))
 					execute(&b);
@@ -82,8 +82,8 @@ int main(int argc, char **argv, char **env)
 				 (!b.cmd_list[i] || b.sep_list[i - 1] == and))
 					exit(2);
 			}
+			/* free_mem(&b.list); */
 		}
-		free_mem(&b.list);
 		free(b.line);
 	}
 	return (0);
