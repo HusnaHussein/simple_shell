@@ -14,7 +14,7 @@ int main(int argc, char **argv, char **env)
 	bundle b;
 	short i;
 	size_t n = 0;
-	char *tmp, *and_pos, *or_pos, *semi_pos, *min;
+	char *tmp, *and_pos, *or_pos, *semi_pos, *min, *comment;
 
 	b.shell.argc = argc;
 	b.shell.argv = argv;
@@ -31,6 +31,9 @@ int main(int argc, char **argv, char **env)
 			}
 			i = 0;
 			tmp = b.line;
+			comment = strchr(tmp, '#');
+			if (comment && (comment == tmp || isspace(*(comment - 1))))
+				*comment = '\0';
 			bzero(b.sep_list, sizeof(serpator) * MAX_PATH);
 			while (true)
 			{
