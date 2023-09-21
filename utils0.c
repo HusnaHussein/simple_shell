@@ -58,7 +58,7 @@ void execute(bundle *b)
 		}
 		else if (b->pid == 0)
 		{
-			if (execve(b->argv[0], b->argv, b->shell.env) == -1)
+			if (execve(b->argv[0], b->argv, environ) == -1)
 			{
 				fprintf(stderr, "%s: 1: %s: not found\n", *b->shell.argv, *b->argv);
 				exit(127);

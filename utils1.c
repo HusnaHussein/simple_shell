@@ -17,7 +17,7 @@ short exe_builtin(bundle *b)
 		if (b->args == 1)
 		{
 			free(b->line);
-			exit(EXIT_SUCCESS);
+			exit(b->status);
 		}
 		else if (b->args == 2)
 		{
@@ -50,9 +50,9 @@ short exe_builtin(bundle *b)
 	else if (strcmp(b->argv[0], "env") == 0)
 	{
 		i = 0;
-		while (b->shell.env[i] != NULL)
+		while (environ[i] != NULL)
 		{
-			printf("%s\n", b->shell.env[i]);
+			printf("%s\n", environ[i]);
 			i++;
 		}
 		return (1);
@@ -61,19 +61,7 @@ short exe_builtin(bundle *b)
 	{
 		if (b->args == 3)
 		{
-			i = 0;
-			while (b->shell.env[i] != NULL)
-			{
-				printf("%s\n", b->shell.env[i]);
-				i++;
-			}
 			setenv(b->argv[1], b->argv[2], 1);
-			i = 0;
-			while (b->shell.env[i] != NULL)
-			{
-				printf("%s\n", b->shell.env[i]);
-				i++;
-			}
 			return (1);
 		}
 		printf("Some error code the checker will reveal to us\n");

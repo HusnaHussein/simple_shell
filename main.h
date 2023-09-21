@@ -21,13 +21,11 @@
 * struct shell - struct for shell
 * @argc: count
 * @argv: args
-* @env: environment
 */
 typedef struct shell
 {
 	int argc;
 	char **argv;
-	char **env;
 } shell;
 
 /**
@@ -99,6 +97,8 @@ typedef struct bundle
 	serpator sep_list[MAX_PATH];
 	char conv_buffer[CONV_BUFFER_SIZE];
 } bundle;
+
+extern char **environ;
 
 void execute(bundle *);
 void free_mem(allocs *);
