@@ -115,3 +115,26 @@ short find_path(bundle *b)
 	}
 	return (ret_val);
 }
+
+/**
+ * read_textfile - converst binary to unsigned int
+ * @b: letters
+ * @filename: file string
+ *
+ * Return: true on success otherwise false
+ */
+bool read_textfile(bundle *b, char *filename)
+{
+	ssize_t file, _read;
+
+	bzero(b->file_buffer, FILE_BUFFER_SIZE);
+	if (filename)
+	{
+		file = open(filename, O_RDONLY);
+		_read = read(file, b->file_buffer, FILE_BUFFER_SIZE);
+		close(file);
+		if (_read != -1)
+			return (true);
+	}
+	return (false);
+}

@@ -11,6 +11,7 @@ short exe_builtin(bundle *);
 short exe_builtin(bundle *b)
 {
 	int i;
+	char *tmp;
 
 	if (strcmp(b->argv[0], "exit") == 0)
 	{
@@ -108,6 +109,32 @@ short exe_builtin(bundle *b)
 		}
 		if (b->args)
 			change_dir(b);
+		return (1);
+	}
+	else if (strcmp(b->argv[0], "alias") == 0)
+	{
+		switch (b->args)
+		{
+		case 1:
+			bzero(b->path, MAX_PATH);
+			strcpy(b->path, "cat ~/.bashrc | awk '{$1=$1};1' | grep '^alias'");
+			strcat(b->path, " | sort -k 2 > /tmp/mole_alias");
+			system(b->path);
+			if (read_textfile(b, "/tmp/mole_alias"))
+			{
+				i = 0;
+				while ((tmp = strtok(i++ ? NULL : b->file_buffer, "\n")))
+				{
+					if (strstr(tmp, "alias ") == tmp)
+						printf("%s\n", tmp);
+				}
+			}
+			else
+				printf("NULL NOTHING\n");
+			break;
+		default:
+			break;
+		}
 		return (1);
 	}
 	return (0);

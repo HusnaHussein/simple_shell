@@ -11,11 +11,13 @@
 #include <limits.h>
 #include <stdbool.h>
 #include <sys/wait.h>
+#include <fcntl.h>
 #include <sys/types.h>
 
 #define MAX_PATH 4096
 #define ALLOC_SIZE 32
 #define CONV_BUFFER_SIZE 40
+#define FILE_BUFFER_SIZE 65536
 
 /**
 * struct shell - struct for shell
@@ -80,6 +82,7 @@ typedef enum serpator
 * @cmd: args
 * @sep_list: environment
 * @conv_buffer: conv_buffer
+* @file_buffer: file_buffer
 */
 typedef struct bundle
 {
@@ -96,6 +99,7 @@ typedef struct bundle
 	char *cmd;
 	serpator sep_list[MAX_PATH];
 	char conv_buffer[CONV_BUFFER_SIZE];
+	char file_buffer[FILE_BUFFER_SIZE];
 } bundle;
 
 extern char **environ;
@@ -107,5 +111,6 @@ short exe_builtin(bundle *);
 bool change_dir(bundle *);
 void build_args(bundle *);
 char *base_conv(int64_t, short, char *);
+bool read_textfile(bundle *, char *);
 
 #endif
